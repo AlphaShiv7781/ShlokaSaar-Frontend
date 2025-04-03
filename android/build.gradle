@@ -1,0 +1,30 @@
+
+buildscript {
+    repositories {
+        google()     // Add this
+        mavenCentral() // Add this
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.3.1' // Ensure version is correct
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22' // Match with Flutter's Kotlin version
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.buildDir = "../build"
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
